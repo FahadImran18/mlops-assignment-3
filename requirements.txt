@@ -1,0 +1,19 @@
+# Airflow providers (Airflow itself is already in the base image)
+apache-airflow-providers-postgres==5.10.0
+
+# Data processing (compatible with Python 3.8)
+pandas==2.0.3
+numpy==1.24.3
+
+# API requests
+requests==2.31.0
+
+# Database
+psycopg2-binary==2.9.9
+
+# Data Version Control
+dvc==3.41.0
+
+# Utilities
+python-dateutil==2.8.2
+

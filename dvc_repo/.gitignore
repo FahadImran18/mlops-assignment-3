@@ -1,0 +1,12 @@
+# Ignore CSV files (tracked by DVC)
+*.csv
+
+# Keep DVC metadata files
+!*.dvc
+
+# Ignore DVC cache
+.dvc/cache/
+
+# Keep DVC config
+!.dvc/config
+

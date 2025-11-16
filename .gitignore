@@ -1,0 +1,70 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Airflow
+airflow.cfg
+airflow.db
+logs/
+*.log
+
+# DVC
+.dvc/
+*.dvc
+.dvcignore
+.dvc/cache
+data/
+*.csv
+!apod_data.csv.dvc.example
+
+# Docker
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# System files (Windows)
+AppData/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project specific
+dvc_repo/.git/
+dvc_repo/*.csv
+dvc_repo/*.dvc
+!dvc_repo/.gitignore
+
+# Documentation files
+*.md
+PROJECT_STRUCTURE.txt
+QUICKSTART.md
+README.md
+PROJECT_SUMMARY.md
