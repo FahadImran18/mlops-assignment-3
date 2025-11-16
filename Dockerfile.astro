@@ -1,0 +1,33 @@
+# Dockerfile for Astronomer Deployment
+# Based on Astronomer's runtime image
+
+FROM quay.io/astronomer/astro-runtime:8.0.0
+
+# Install system dependencies
+USER root
+RUN apt-get update && apt-get install -y \
+    git \
+    postgresql-client \
+    && rm -rf /var/lib/apt/lists/*
+
+USER astro
+
+# Install Python dependencies
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
+
+# Install DVC
+RUN pip install --no-cache-dir dvc[s3] dvc[gdrive] dvc[gs] dvc[azure] dvc[oss] dvc[ssh]
+
+# Copy DAGs and plugins
+COPY dags/ /usr/local/airflow/dags/
+COPY plugins/ /usr/local/airflow/plugins/
+
+# Create necessary directories
+RUN mkdir -p /usr/local/airflow/data \
+    && mkdir -p /usr/local/airflow/dvc_repo
+
+# Set environment variables
+ENV AIRFLOW__CORE__LOAD_EXAMPLES=False
+ENV AIRFLOW__CORE__ENABLE_XCOM_PICKLING=True
+

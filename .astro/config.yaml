@@ -1,0 +1,7 @@
+project:
+  name: nasa-apod-etl
+
+deployment:
+  name: nasa-apod-etl-deployment
+  description: "NASA APOD ETL Pipeline with DVC versioning"
+

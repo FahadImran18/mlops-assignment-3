@@ -20,6 +20,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'plugins'))
 
 from nasa_apod_etl import extract_apod_data, transform_apod_data, load_to_postgres, load_to_csv, version_with_dvc, commit_to_git
 
+# Get Airflow home directory (works for both local and Astronomer)
+# Astronomer sets AIRFLOW_HOME=/usr/local/airflow, local uses /opt/airflow
+AIRFLOW_HOME = os.environ.get('AIRFLOW_HOME', '/opt/airflow')
+
 # Default arguments for the DAG
 default_args = {
     'owner': 'mlops_team',
@@ -77,7 +81,7 @@ with DAG(
         python_callable=load_to_csv,
         op_kwargs={
             'input_path': '/tmp/apod_cleaned.json',
-            'output_path': '/opt/airflow/data/apod_data.csv'
+            'output_path': f'{AIRFLOW_HOME}/data/apod_data.csv'
         }
     )
 
@@ -86,8 +90,8 @@ with DAG(
         task_id='version_with_dvc',
         python_callable=version_with_dvc,
         op_kwargs={
-            'csv_path': '/opt/airflow/data/apod_data.csv',
-            'dvc_repo_path': '/opt/airflow/dvc_repo'
+            'csv_path': f'{AIRFLOW_HOME}/data/apod_data.csv',
+            'dvc_repo_path': f'{AIRFLOW_HOME}/dvc_repo'
         }
     )
 
@@ -96,7 +100,7 @@ with DAG(
         task_id='commit_to_git',
         python_callable=commit_to_git,
         op_kwargs={
-            'dvc_repo_path': '/opt/airflow/dvc_repo',
+            'dvc_repo_path': f'{AIRFLOW_HOME}/dvc_repo',
             'commit_message': 'Update APOD data via Airflow pipeline'
         }
     )
