@@ -61,6 +61,7 @@ dvc_repo/.git/
 dvc_repo/*.csv
 dvc_repo/*.dvc
 !dvc_repo/.gitignore
+.gitignore
 
 # Documentation files
 *.md
